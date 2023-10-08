@@ -39,6 +39,6 @@ async function handleRes(res: Response) {
   } else {
     console.log("bad res status code");
   }
-  const data = await res.json();
-  return {res: data, ok};
+  const resJson = await res.json();
+  return {resJson, ok};
 }
