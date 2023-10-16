@@ -60,7 +60,18 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
             Create Account
           </NextLink>
         </Box>
-        <Box mr={2}>{loginUser.username}</Box>
+
+        <Box mr={2}>
+          <Button
+            onClick={() => {
+              router.push("/profile");
+            }}
+            variant="link"
+          >
+            {loginUser.username}
+          </Button>
+        </Box>
+        
         <Button 
           onClick={async () => { 
             // await logout("" as any); 

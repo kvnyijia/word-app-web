@@ -3,6 +3,7 @@ import { fetchWrapper } from "./fetchWrapper";
 export const userServices = {
   createUser,
   login,
+  getUser,
   getAccounts,
 };
 
@@ -27,6 +28,13 @@ function login(jsonData) {
     .catch((err) => {
       console.log(err);
       return {res: err, ok: false};
+    });
+}
+
+function getUser(username) {
+  return fetchWrapper.get(`http://localhost:8080/users/${username}`)
+    .then(async ({resJson, ok}) => {
+      return {resJson, ok};
     });
 }
 

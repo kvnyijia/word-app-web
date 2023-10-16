@@ -5,7 +5,6 @@ const Index = () => {
   let body = "Login to see your flaskcards";
   return (
     <>
-      <NavBar/>
       <Layout>
         {body}
       </Layout>
