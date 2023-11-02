@@ -40,27 +40,22 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
   if (!loginUser) {
     body = (
       <Flex align="center">
-        <Box mr={2}>
+        <Button colorScheme='orange' variant='outline' mr={2}>
           <NextLink href="/login">
             LOGIN
           </NextLink>
-        </Box>
-        <Box>
+        </Button>
+
+        <Button colorScheme='orange'>
           <NextLink href="/register">
             REGISTER
           </NextLink>
-        </Box>
+        </Button>
       </Flex>
     )
   } else {
     body = (
       <Flex align="center">
-        <Box mr={2}>
-          <NextLink href="/" >
-            Create Account
-          </NextLink>
-        </Box>
-
         <Box mr={2}>
           <Button
             onClick={() => {
