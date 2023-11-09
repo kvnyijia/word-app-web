@@ -26,9 +26,11 @@ const Index = () => {
   useEffect(() => {
     if (typeof loginUser?.username !== "undefined") {
       userServices.getUser(loginUser.username)
-        .then(({resJson}) => {
-          setUsername(resJson.username);
-          setAuthTokenIsValid(true);
+        .then(({resJson, ok}) => {
+          if (ok) {
+            setUsername(resJson.username);
+            setAuthTokenIsValid(true);
+          }
         })
         .catch(() => {});
     }
