@@ -52,7 +52,9 @@ const Index = () => {
       <SimpleGrid columns={2} spacing={4}>
         {tables.map((table, index) => {
           return (
-            <Button padding={10} key={index}>{table.name}</Button>
+            <NextLink key={index} href={`tables/${table.id}`}>
+              <Button key={index} padding={10} w={400}>{table.name}</Button>
+            </NextLink>
           );
         })}
       </SimpleGrid>
