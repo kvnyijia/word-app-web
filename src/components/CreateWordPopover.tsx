@@ -1,28 +1,30 @@
 import React, { useState } from "react";
 import { Popover, PopoverTrigger, Button, PopoverContent, PopoverArrow, PopoverCloseButton, ButtonGroup, FormControl, FormLabel, Stack, useDisclosure, Input } from "@chakra-ui/react";
-import { tableServices } from "../utils/tableServices";
+import { wordServices } from "../utils/wordServices";
 
-const Form = ({ onClose, owner }) => {
-  const [name, setName] = useState("");
+const Form = ({ onClose, table_id }) => {
+  const [term, setTerm] = useState("");
+  const [meaning, setMeaning] = useState("");
+  const [picture_url, setPicture_url] = useState("");
   return (
     <Stack spacing={4}>
       <FormControl isRequired>
         <FormLabel>{"New word"}</FormLabel>
         <Input 
-          name='name' 
-          onChange={(e) => { setName(e.target.value); }} 
+          name='term' 
+          onChange={(e) => { setTerm(e.target.value); }} 
         />
 
         <FormLabel>{"Meaning"}</FormLabel>
         <Input 
-          name='name' 
-          onChange={(e) => { setName(e.target.value); }} 
+          name='meaning' 
+          onChange={(e) => { setMeaning(e.target.value); }} 
         />
 
         <FormLabel>{"Picture url"}</FormLabel>
         <Input 
-          name='name' 
-          onChange={(e) => { setName(e.target.value); }} 
+          name='picture_url' 
+          onChange={(e) => { setPicture_url(e.target.value); }} 
         />
       </FormControl>
 
@@ -33,9 +35,9 @@ const Form = ({ onClose, owner }) => {
 
         <Button 
           colorScheme='teal'
-          isDisabled={name === ""}
+          isDisabled={term === "" || meaning === "" || picture_url === ""}
           onClick={() => {
-            tableServices.createTable({ name, owner })
+            wordServices.createWord({ table_id, term, meaning, picture_url })
               .then(() => { window.location.reload(); })
               .catch(() => { })
           }}
@@ -47,7 +49,7 @@ const Form = ({ onClose, owner }) => {
   );
 };
 
-export const CreateWordPopover = ({ username }) => {
+export const CreateWordPopover = ({ table_id }) => {
   const { onOpen, onClose, isOpen } = useDisclosure();
   return (
     <Popover
@@ -62,7 +64,7 @@ export const CreateWordPopover = ({ username }) => {
       <PopoverContent p={5}>
         <PopoverArrow />
         <PopoverCloseButton />
-        <Form onClose={onClose} owner={username}/>
+        <Form onClose={onClose} table_id={table_id}/>
       </PopoverContent>
     </Popover>
   );

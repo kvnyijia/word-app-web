@@ -25,7 +25,7 @@ const Table = () => {
     <>
       <Flex justifyContent='space-between' pb={5}>
         <Text>Your words</Text>
-        <CreateWordPopover username={""}/>
+        <CreateWordPopover table_id={table_id}/>
       </Flex>
       <SimpleGrid columns={2} spacing={4}>
       {words.map((word, index) => (
