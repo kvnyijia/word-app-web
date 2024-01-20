@@ -2,6 +2,7 @@
 export const fetchWrapper = {
   get, 
   post,
+  _delete,
 };
 
 function get(url: string) {
@@ -18,6 +19,15 @@ function post(url: string, jsonData) {
     mode: "cors",
     headers: { "Content-Type": "application/json", ...authHeader(url) },
     body: JSON.stringify(jsonData), 
+  } as any;
+  return fetch(url, reqOptions).then(handleRes);
+}
+
+function _delete(url: string) {
+  const reqOptions = {
+    method: "DELETE",
+    mode: "cors",
+    headers: {...authHeader(url)},
   } as any;
   return fetch(url, reqOptions).then(handleRes);
 }

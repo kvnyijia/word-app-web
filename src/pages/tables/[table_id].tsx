@@ -1,4 +1,4 @@
-import { ArrowBackIcon } from "@chakra-ui/icons";
+import { ArrowBackIcon, DeleteIcon } from "@chakra-ui/icons";
 import { Box, Flex, IconButton, Image, SimpleGrid, Text } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -29,13 +29,31 @@ const Table = () => {
       </Flex>
       <SimpleGrid columns={2} spacing={4}>
       {words.map((word, index) => (
-        <Box borderRadius='lg' bg='grey' p={5}>
+        <Box borderRadius='lg' bg='grey' p={5} key={index}>
           <Text>{word.term}</Text>
           <Text>{word.meaning}</Text>
           <Image
             boxSize='150px'
             src={word.picture_url}
             alt={word.term}
+          />
+          <IconButton
+            aria-label="Delete"
+            icon={<DeleteIcon/>}
+            size='xs'
+            mt={3}
+            p={3}
+            variant="link"
+            colorScheme="red"
+            isRound={true}
+            style={{border: "solid"}}
+            onClick={() => {
+              wordServices.deleteWord(word.id)
+                .then(() => {
+                  window.location.reload();
+                })
+                .catch(() => {});
+            }}
           />
         </Box>
       ))}

@@ -5,6 +5,7 @@ export const wordServices = {
   createWord,
   getWords,
   getWord,
+  deleteWord,
 };
 
 function createWord(jsonData) {
@@ -23,6 +24,13 @@ function getWords(table_id) {
 
 function getWord(word_id) {
   return fetchWrapper.get(`${apiUrl}/words/${word_id}`)
+    .then(async ({resJson, ok}) => {
+      return {resJson, ok};
+    });
+}
+
+function deleteWord(word_id) {
+  return fetchWrapper._delete(`${apiUrl}/words/${word_id}`)
     .then(async ({resJson, ok}) => {
       return {resJson, ok};
     });
