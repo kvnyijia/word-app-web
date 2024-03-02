@@ -5,12 +5,10 @@ import { InputField } from "../components/InputField";
 import { useRouter } from "next/router";
 import NextLink from "next/link";
 import { userServices } from "../utils/userServices";
-import { Layout } from "../components/Layout";
 
 const Login: React.FC<{}> = ({}) => {
   const router = useRouter();
   return (
-    <Layout>
     <Formik
       initialValues={{ username: '', password: '' }}
       onSubmit={async (values, actions) => {
@@ -54,7 +52,6 @@ const Login: React.FC<{}> = ({}) => {
         </Form>
       )}
     </Formik>
-    </Layout>
   );
 }
 

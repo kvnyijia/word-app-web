@@ -3,7 +3,6 @@ import { Box, Flex, IconButton, Image, SimpleGrid, Text, useToast } from "@chakr
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { CreateWordPopover } from "../../components/CreateWordPopover";
-import { Layout } from "../../components/Layout";
 import { wordServices } from "../../utils/wordServices";
 
 const Table = () => {
@@ -85,7 +84,7 @@ const Table = () => {
   );
 
   return (
-    <Layout>
+    <>
       <IconButton
         mb={5}
         aria-label="back to previous page"
@@ -95,7 +94,7 @@ const Table = () => {
         }}
       />
       {body}
-    </Layout>
+    </>
   )
 };
 

@@ -1,4 +1,3 @@
-import { Layout } from '../components/Layout';
 import { Button, Flex, HStack, IconButton, SimpleGrid, Text, useToast } from '@chakra-ui/react';
 import NextLink from "next/link";
 import { CreateTablePopover } from '../components/CreateTablePopover';
@@ -79,7 +78,7 @@ const Index = () => {
       <SimpleGrid columns={2} spacing={4}>
         {tables.map((table, index) => {
           return (
-            <HStack>
+            <HStack key={index}>
               <NextLink key={index} href={`tables/${table.id}`}>
                 <Button key={index} padding={10} w={400}>{table.name}</Button>
               </NextLink>
@@ -115,9 +114,9 @@ const Index = () => {
   );
   
   return (
-    <Layout>
+    <>
       {body}
-    </Layout>
+    </>
   );
 };
 

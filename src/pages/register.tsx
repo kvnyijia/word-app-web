@@ -1,7 +1,6 @@
 import React from "react";
 import { Form, Formik } from "formik"
 import { Box, Button } from "@chakra-ui/react";
-import { Layout } from "../components/Layout";
 import { InputField } from "../components/InputField"
 import { useRouter } from "next/router"
 import { userServices } from "../utils/userServices";
@@ -9,7 +8,6 @@ import { userServices } from "../utils/userServices";
 const Register: React.FC<{}> = ({}) => {
   const router = useRouter();
   return (
-    <Layout>
     <Formik
       initialValues={{ username: '', email: '',  password: '' }}
       onSubmit={async (values, actions) => {
@@ -56,7 +54,6 @@ const Register: React.FC<{}> = ({}) => {
         </Form>
       )}
     </Formik>
-    </Layout>
   );
 }
 

@@ -1,6 +1,5 @@
 import { Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { Layout } from "../components/Layout";
 import { userServices } from "../utils/userServices";
 
 interface loginUserProps {
@@ -30,12 +29,12 @@ const Profile = () => {
   }, [loginUser]);
 
   return (
-    <Layout>
+    <>
       profile
       <Text>
         {username}
       </Text>
-    </Layout>
+    </>
   );
 };
 
