@@ -1,4 +1,5 @@
 import ThemeClient from "../components/ThemeClient"
+import StoreProvider from "../redux/StoreProvider"
 // import { ColorModeScript } from "@chakra-ui/react"
 
 export const metadata = {
@@ -17,7 +18,9 @@ export default function RootLayout({
         {/* Make Color mode to persists when you refresh the page. */}
         {/* <ColorModeScript /> */}
         <ThemeClient>
-          {children}
+          <StoreProvider> 
+            {children}
+          </StoreProvider>
         </ThemeClient>
       </body>
     </html>

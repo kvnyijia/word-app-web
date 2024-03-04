@@ -4,6 +4,8 @@ import NextLink from "next/link";
 import { useRouter } from "next/navigation";
 import { DarkModeSwitch } from "./DarkModeSwitch";
 import { userServices } from "../utils/userServices";
+import { useAppDispatch } from "../redux/hooks";
+import { logout } from "../redux/feactures/login";
 
 interface NavBarProps {
 
@@ -21,6 +23,7 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
   const router = useRouter();
   let body: any = null;
   const [loginUser, setLoginUser] = useState<loginUserProps>({} as loginUserProps);
+  const dispath = useAppDispatch();
 
   const getLocalStrage = () => {
     const loginUserItem = localStorage.getItem("loginUser");
@@ -74,6 +77,7 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
         
         <Button 
           onClick={async () => { 
+            dispath(logout());
             // await logout("" as any); 
             localStorage.removeItem("loginUser");
             localStorage.removeItem("authtoken");

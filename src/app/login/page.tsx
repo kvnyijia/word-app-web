@@ -6,15 +6,20 @@ import { InputField } from "../../components/InputField";
 import { useRouter } from "next/navigation";
 import NextLink from "next/link";
 import { userServices } from "../../utils/userServices";
+import { login } from "../../redux/feactures/login";
+import { useAppDispatch } from "../../redux/hooks";
 
 const Login: React.FC<{}> = ({}) => {
   const router = useRouter();
+  const dispath = useAppDispatch();
+
   return (
     <Formik
       initialValues={{ username: '', password: '' }}
       onSubmit={async (values, actions) => {
         let {ok} = await userServices.login(values);
         if (ok) {
+          dispath(login());
           router.push("/");
         } else {
           actions.setErrors({password: "Invalid username or password"});
