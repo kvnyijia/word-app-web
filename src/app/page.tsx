@@ -1,3 +1,4 @@
+'use client';
 import { Button, Flex, HStack, IconButton, SimpleGrid, Text, useToast } from '@chakra-ui/react';
 import NextLink from "next/link";
 import { CreateTablePopover } from '../components/CreateTablePopover';
@@ -17,7 +18,7 @@ const Index = () => {
   const [loginUser, setLoginUser] = useState<loginUserRecord>({} as loginUserRecord);
   useEffect(() => {
     const loginUserItem = localStorage.getItem("loginUser");
-    const jsonLoginUserItem = JSON.parse(loginUserItem);
+    const jsonLoginUserItem = JSON.parse(loginUserItem ? loginUserItem : "{}");
     setLoginUser(jsonLoginUserItem);
   }, []);
 

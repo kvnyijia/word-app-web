@@ -1,21 +1,23 @@
+'use client'
 import React from "react";
-import { Form, Formik } from "formik"
-import { Box, Button } from "@chakra-ui/react";
-import { InputField } from "../components/InputField"
-import { useRouter } from "next/router"
-import { userServices } from "../utils/userServices";
+import { Form, Formik } from "formik";
+import { Box, Button, Flex } from "@chakra-ui/react";
+import { InputField } from "../../components/InputField";
+import { useRouter } from "next/navigation";
+import NextLink from "next/link";
+import { userServices } from "../../utils/userServices";
 
-const Register: React.FC<{}> = ({}) => {
+const Login: React.FC<{}> = ({}) => {
   const router = useRouter();
   return (
     <Formik
-      initialValues={{ username: '', email: '',  password: '' }}
+      initialValues={{ username: '', password: '' }}
       onSubmit={async (values, actions) => {
-        let {resJson, ok} = await userServices.createUser(values);
+        let {ok} = await userServices.login(values);
         if (ok) {
-          router.push("/login");
+          router.push("/");
         } else {
-          actions.setErrors({password: resJson.error});
+          actions.setErrors({password: "Invalid username or password"});
         }
       }}
     >
@@ -29,27 +31,24 @@ const Register: React.FC<{}> = ({}) => {
           />
           <Box mt={4}>
             <InputField
-              name="email"
-              placeholder="Email"
-              label="Email"
-              type="text"
-            />
-          </Box>
-          <Box mt={4}>
-            <InputField
               name="password"
               placeholder="Password"
               label="Password"
               type="password"
             />
           </Box>
+          <Flex mt={2}>
+            <NextLink href="/forget-password">
+              Forget password?
+            </NextLink>
+          </Flex>
           <Button 
             mt={4} 
             type="submit" 
             isLoading={props.isSubmitting} 
             colorScheme='teal'
           >
-            REGISTER
+            LOGIN
           </Button>
         </Form>
       )}
@@ -57,4 +56,4 @@ const Register: React.FC<{}> = ({}) => {
   );
 }
 
-export default Register;
+export default Login;

@@ -1,13 +1,17 @@
+'use client'
 import { ArrowBackIcon, DeleteIcon } from "@chakra-ui/icons";
 import { Box, Flex, IconButton, Image, SimpleGrid, Text, useToast } from "@chakra-ui/react";
-import { useRouter } from "next/router";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { CreateWordPopover } from "../../components/CreateWordPopover";
-import { wordServices } from "../../utils/wordServices";
+import { CreateWordPopover } from "../../../components/CreateWordPopover";
+import { wordServices } from "../../../utils/wordServices";
 
 const Table = () => {
   const router = useRouter();
-  const table_id = router.asPath.substring(8);
+  // const table_id = router.pathname;//.substring(8);
+  const pathname = usePathname();
+  const table_id = pathname ? pathname.substring(8) : 0;
+
   const toast = useToast();
 
   const [words, setWords] = useState<any[]>([]);

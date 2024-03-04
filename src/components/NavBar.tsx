@@ -1,7 +1,7 @@
 import { Box, Button, Flex, Heading } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import NextLink from "next/link";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { DarkModeSwitch } from "./DarkModeSwitch";
 import { userServices } from "../utils/userServices";
 
@@ -19,12 +19,17 @@ interface loginUserProps {
 
 export const NavBar: React.FC<NavBarProps> = ({}) => {
   const router = useRouter();
-  let body = null;
+  let body: any = null;
   const [loginUser, setLoginUser] = useState<loginUserProps>({} as loginUserProps);
-  useEffect(() => {
+
+  const getLocalStrage = () => {
     const loginUserItem = localStorage.getItem("loginUser");
-    const jsonLoginUserItem = JSON.parse(loginUserItem);
+    const jsonLoginUserItem = loginUserItem ? JSON.parse(loginUserItem) : null; 
     setLoginUser(jsonLoginUserItem);
+  };
+
+  useEffect(() => {
+    getLocalStrage();
   }, []);
   
   const [authTokenIsValid, setAuthTokenIsValid] = useState(false);
@@ -73,7 +78,8 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
             localStorage.removeItem("loginUser");
             localStorage.removeItem("authtoken");
             setLoginUser({} as loginUserProps);
-            router.reload();
+            getLocalStrage();
+            window.location.reload();
           }}
           // isLoading={logoutFetching}
           variant="link"

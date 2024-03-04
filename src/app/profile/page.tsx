@@ -1,6 +1,7 @@
+'use client'
 import { Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { userServices } from "../utils/userServices";
+import { userServices } from "../../utils/userServices";
 
 interface loginUserProps {
   username: string;
@@ -12,7 +13,7 @@ const Profile = () => {
 
   useEffect(() => {
     const loginUserItem = localStorage.getItem("loginUser");
-    const jsonLoginUserItem = JSON.parse(loginUserItem);
+    const jsonLoginUserItem = JSON.parse(loginUserItem ? loginUserItem : "{}");
     setLoginUser(jsonLoginUserItem);
   }, []);
 
