@@ -1,5 +1,5 @@
 'use client';
-import { Button, Flex, HStack, IconButton, SimpleGrid, Text, useToast } from '@chakra-ui/react';
+import { Box, Button, Flex, HStack, IconButton, SimpleGrid, Text, useToast } from '@chakra-ui/react';
 import NextLink from "next/link";
 import { CreateTablePopover } from '../components/CreateTablePopover';
 import { useState, useEffect } from 'react';
@@ -38,8 +38,10 @@ const Index = () => {
   }, [loginUser]);
 
   const [tables, setTables] = useState<any[]>([]);
+  const [leaderboard, setLeaderboard] = useState<any[]>([]);
   useEffect(() => {
     getTables(loginUser, authTokenIsValid);
+    getLeaderboard(loginUser, authTokenIsValid)
   }, [loginUser, authTokenIsValid]);
 
   function getTables(loginUser, authTokenIsValid) {
@@ -74,6 +76,14 @@ const Index = () => {
       });
   }
 
+  function getLeaderboard(loginUser, authTokenIsValid) {
+    if (loginUser && authTokenIsValid) {
+      tableServices.getLeaderboard().then(({ resJson }) => {
+        setLeaderboard(resJson.data);
+      }).catch(() => {});
+    }
+  }
+
   const buildTables = () => {
     return (
       <SimpleGrid columns={2} spacing={4}>
@@ -102,11 +112,24 @@ const Index = () => {
     )
   };
 
+  const buildLeaderboard = () => {
+    return (
+      leaderboard.map((item, index) => (
+        <Box key={index} bg="tomato" p={2} m={2} borderRadius={10}>
+          <HStack>
+            <Text>{item.key}</Text>
+            <Text>{item.value}</Text>
+          </HStack>
+        </Box>
+      ))
+    );
+  }
+
   const body = !loginUser || !authTokenIsValid ? (
     "Login to see your flaskcards"
   ) : (
     <Flex flexDirection='column'>
-      <Flex justifyContent='space-between' pb={5}>
+      <Flex flexDirection='column' justifyContent='space-between' pb={5}>
         <Text>Your tables</Text>
         <CreateTablePopover username={username}/>
       </Flex>
@@ -116,7 +139,12 @@ const Index = () => {
   
   return (
     <>
-      {body}
+      <Box flex={1}>
+        {body}
+      </Box>
+      <Box width="350px" p={5} >
+        {buildLeaderboard()}
+      </Box>
     </>
   );
 };

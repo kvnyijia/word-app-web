@@ -44,7 +44,7 @@ export const CreateTablePopover = ({ username }) => {
       isOpen={isOpen}      
     >
       <PopoverTrigger>
-        <Button colorScheme='cyan'>Create Table</Button>
+        <Button w='150px' colorScheme='cyan'>Create Table</Button>
       </PopoverTrigger>
 
       <PopoverContent p={5}>

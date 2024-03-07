@@ -102,7 +102,7 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
       top={0}
     >
       <Flex
-        maxW={1000}
+        maxW={1300}
         align="center"
         m="auto"
         flex={1}

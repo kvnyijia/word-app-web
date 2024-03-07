@@ -13,7 +13,7 @@ const Login: React.FC<{}> = ({}) => {
   const router = useRouter();
   const dispath = useAppDispatch();
 
-  return (
+  const body = (
     <Formik
       initialValues={{ username: '', password: '' }}
       onSubmit={async (values, actions) => {
@@ -59,6 +59,16 @@ const Login: React.FC<{}> = ({}) => {
       )}
     </Formik>
   );
+
+  return (
+    <>
+      <Box flex={1}>
+        {body}
+      </Box>
+      <Box w="350px">
+      </Box>
+    </>
+  )
 }
 
 export default Login;

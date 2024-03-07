@@ -6,6 +6,7 @@ export const tableServices = {
   getTables,
   getTable,
   deleteTable,
+  getLeaderboard,
 };
 
 function createTable(jsonData) {
@@ -31,6 +32,13 @@ function getTable(table_id) {
 
 function deleteTable(table_id) {
   return fetchWrapper._delete(`${apiUrl}/tables/${table_id}`)
+    .then(async ({resJson, ok}) => {
+      return {resJson, ok};
+    });
+}
+
+function getLeaderboard() {
+  return fetchWrapper.get(`${apiUrl}/leaderboard`)
     .then(async ({resJson, ok}) => {
       return {resJson, ok};
     });

@@ -1,6 +1,6 @@
 'use client'
 import { ArrowBackIcon, DeleteIcon } from "@chakra-ui/icons";
-import { Box, Flex, IconButton, Image, SimpleGrid, Text, useToast } from "@chakra-ui/react";
+import { Box, Card, CardBody, Flex, Heading, IconButton, Image, SimpleGrid, Text, useToast } from "@chakra-ui/react";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { CreateWordPopover } from "../../../components/CreateWordPopover";
@@ -52,15 +52,26 @@ const Table = () => {
   const body = !words ? (
     "Login again to see your flaskcards"
   ) : (
-    <>
+    <Box
+      flex={1}
+    >
+      <IconButton
+        mb={5}
+        aria-label="back to previous page"
+        icon={<ArrowBackIcon/>}
+        onClick={() => { 
+          router.back();
+        }}
+      />
       <Flex justifyContent='space-between' pb={5}>
         <Text>Your words</Text>
         <CreateWordPopover table_id={table_id}/>
       </Flex>
       <SimpleGrid columns={2} spacing={4}>
       {words.map((word, index) => (
-        <Box borderRadius='lg' bg='grey' p={5} key={index}>
-          <Text>{word.term}</Text>
+        <Card variant='filled' borderRadius='lg' p={5} key={index}>
+          <CardBody>
+          <Heading as='h3' size='sm'>{word.term}</Heading>
           <Text>{word.meaning}</Text>
           <Image
             boxSize='150px'
@@ -81,22 +92,15 @@ const Table = () => {
               deleteWord(table_id, word.id);
             }}
           />
-        </Box>
+          </CardBody>
+        </Card>
       ))}
       </SimpleGrid>
-    </>
+    </Box>
   );
 
   return (
     <>
-      <IconButton
-        mb={5}
-        aria-label="back to previous page"
-        icon={<ArrowBackIcon/>}
-        onClick={() => { 
-          router.back();
-        }}
-      />
       {body}
     </>
   )
