@@ -58,7 +58,7 @@ export const CreateWordPopover = ({ table_id }) => {
       isOpen={isOpen}      
     >
       <PopoverTrigger>
-        <Button colorScheme='cyan'>Create Word</Button>
+        <Button w='150px' colorScheme='cyan'>Create Word</Button>
       </PopoverTrigger>
 
       <PopoverContent p={5}>

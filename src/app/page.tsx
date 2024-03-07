@@ -6,6 +6,9 @@ import { useState, useEffect } from 'react';
 import { userServices } from '../utils/userServices';
 import { tableServices } from '../utils/tableServices';
 import { DeleteIcon } from '@chakra-ui/icons';
+import Leaderboard from '../components/Leaderboard';
+import { useAppDispatch } from '../redux/hooks';
+import { get_leaderboard } from '../redux/feactures/rightSide';
 
 interface loginUserRecord {
   username: string;
@@ -14,7 +17,7 @@ interface loginUserRecord {
 
 const Index = () => {
   const toast = useToast();
-
+  const dispath = useAppDispatch();
   const [loginUser, setLoginUser] = useState<loginUserRecord>({} as loginUserRecord);
   useEffect(() => {
     const loginUserItem = localStorage.getItem("loginUser");
@@ -38,10 +41,11 @@ const Index = () => {
   }, [loginUser]);
 
   const [tables, setTables] = useState<any[]>([]);
-  const [leaderboard, setLeaderboard] = useState<any[]>([]);
   useEffect(() => {
     getTables(loginUser, authTokenIsValid);
-    getLeaderboard(loginUser, authTokenIsValid)
+    if (loginUser && authTokenIsValid) {
+      dispath(get_leaderboard());
+    }
   }, [loginUser, authTokenIsValid]);
 
   function getTables(loginUser, authTokenIsValid) {
@@ -76,14 +80,6 @@ const Index = () => {
       });
   }
 
-  function getLeaderboard(loginUser, authTokenIsValid) {
-    if (loginUser && authTokenIsValid) {
-      tableServices.getLeaderboard().then(({ resJson }) => {
-        setLeaderboard(resJson.data);
-      }).catch(() => {});
-    }
-  }
-
   const buildTables = () => {
     return (
       <SimpleGrid columns={2} spacing={4}>
@@ -112,19 +108,6 @@ const Index = () => {
     )
   };
 
-  const buildLeaderboard = () => {
-    return (
-      leaderboard.map((item, index) => (
-        <Box key={index} bg="tomato" p={2} m={2} borderRadius={10}>
-          <HStack>
-            <Text>{item.key}</Text>
-            <Text>{item.value}</Text>
-          </HStack>
-        </Box>
-      ))
-    );
-  }
-
   const body = !loginUser || !authTokenIsValid ? (
     "Login to see your flaskcards"
   ) : (
@@ -143,7 +126,7 @@ const Index = () => {
         {body}
       </Box>
       <Box width="350px" p={5} >
-        {buildLeaderboard()}
+        <Leaderboard/>
       </Box>
     </>
   );

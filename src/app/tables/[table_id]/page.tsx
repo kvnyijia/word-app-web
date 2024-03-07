@@ -4,6 +4,7 @@ import { Box, Card, CardBody, Flex, Heading, IconButton, Image, SimpleGrid, Text
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { CreateWordPopover } from "../../../components/CreateWordPopover";
+import Leaderboard from "../../../components/Leaderboard";
 import { wordServices } from "../../../utils/wordServices";
 
 const Table = () => {
@@ -63,7 +64,7 @@ const Table = () => {
           router.back();
         }}
       />
-      <Flex justifyContent='space-between' pb={5}>
+      <Flex flexDirection='column' justifyContent='space-between' pb={5}>
         <Text>Your words</Text>
         <CreateWordPopover table_id={table_id}/>
       </Flex>
@@ -102,6 +103,9 @@ const Table = () => {
   return (
     <>
       {body}
+      <Box w='350px' p={5}>
+        <Leaderboard/>
+      </Box>
     </>
   )
 };
